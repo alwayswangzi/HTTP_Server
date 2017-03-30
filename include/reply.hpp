@@ -10,6 +10,7 @@ namespace http {
 namespace server {
 
 /// A reply to be sent to a client.
+// 给客户端发送答复
 struct reply
 {
   /// The status of the reply.
@@ -34,14 +35,17 @@ struct reply
   } status;
 
   /// The headers to be included in the reply.
+  // 标题
   std::vector<header> headers;
 
   /// The content to be sent in the reply.
+  // 内容
   std::string content;
 
   /// Convert the reply into a vector of buffers. The buffers do not own the
   /// underlying memory blocks, therefore the reply object must remain valid and
   /// not be changed until the write operation has completed.
+  // 将答复转换为vector<buffer>
   std::vector<boost::asio::const_buffer> to_buffers();
 
   /// Get a stock reply.

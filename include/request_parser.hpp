@@ -9,22 +9,27 @@ namespace server {
 struct request;
 
 /// Parser for incoming requests.
+// 来自客户端请求的解析器
 class request_parser
 {
 public:
   /// Construct ready to parse the request method.
+  // 构建准备解析请求方法
   request_parser();
 
   /// Reset to initial parser state.
+  // 重置为初始解析器的状态
   void reset();
 
   /// Result of parse.
+  // 解析结果：好，坏，未定义
   enum result_type { good, bad, indeterminate };
 
   /// Parse some data. The enum return value is good when a complete request has
   /// been parsed, bad if the data is invalid, indeterminate when more data is
   /// required. The InputIterator return value indicates how much of the input
   /// has been consumed.
+  // 输入迭代器
   template <typename InputIterator>
   std::tuple<result_type, InputIterator> parse(request& req,
       InputIterator begin, InputIterator end)
@@ -40,21 +45,25 @@ public:
 
 private:
   /// Handle the next character of input.
+  // 处理下一个输入的字符
   result_type consume(request& req, char input);
 
   /// Check if a byte is an HTTP character.
   static bool is_char(int c);
 
   /// Check if a byte is an HTTP control character.
+  // 是一个控制字符
   static bool is_ctl(int c);
 
   /// Check if a byte is defined as an HTTP tspecial character.
+  // 特殊字符
   static bool is_tspecial(int c);
 
   /// Check if a byte is a digit.
   static bool is_digit(int c);
 
   /// The current state of the parser.
+  // 解析器目前的状态
   enum state
   {
     method_start,

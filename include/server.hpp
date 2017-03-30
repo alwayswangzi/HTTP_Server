@@ -14,6 +14,8 @@ namespace server {
 class server
 {
 public:
+
+  // 禁止拷贝构造和赋值构造函数
   server(const server&) = delete;
   server& operator=(const server&) = delete;
 
@@ -27,6 +29,7 @@ public:
 
 private:
   /// Perform an asynchronous accept operation.
+  // 异步
   void do_accept();
 
   /// Wait for a request to stop the server.
@@ -42,12 +45,14 @@ private:
   boost::asio::ip::tcp::acceptor acceptor_;
 
   /// The connection manager which owns all live connections.
+  // 以链接的套接字管理
   connection_manager connection_manager_;
 
   /// The next socket to be accepted.
   boost::asio::ip::tcp::socket socket_;
 
   /// The handler for all incoming requests.
+  // request的处理
   request_handler request_handler_;
 };
 
